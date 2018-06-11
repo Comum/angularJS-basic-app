@@ -12,7 +12,7 @@ var app = angular
             })
             .when('/services', {
                 templateUrl: 'templates/services.html',
-                controller: 'ServicesCtrl'
+                controller: 'MainCtrl'
             })
             .when('/contact', {
                 templateUrl: 'templates/contact.html',
@@ -22,16 +22,17 @@ var app = angular
                 redirectTo: '/main'
             });
     }])
-    .controller('MainCtrl', ['$scope', function ($scope) {
-        console.log('Main controller');
-    }])
-    .controller('ServicesCtrl', ['$scope', '$http', function ($scope, $http) {
+    .controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
         $http
             .get('/json/services.json')
             .then(function (response) {
                 $scope.services = response.data;
             });
     }])
-    .controller('ContactCtrl', ['$scope', function ($scope) {
-        console.log('Contact controller');
+    .controller('ContactCtrl', ['$scope', '$http', function ($scope, $http) {
+        $http
+            .get('/json/locations.json')
+            .then(function (response) {
+                $scope.locations = response.data;
+            });
     }]);
